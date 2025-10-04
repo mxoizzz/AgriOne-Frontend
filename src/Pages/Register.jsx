@@ -8,9 +8,10 @@ export default function Register() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
-    email: "",
+    phoneNumber: "", // required
+    email: "",       // optional
     password: "",
-    role: "farmer", // default role
+    role: "FARMER",  // must match backend enum: FARMER, BUYER, AGENT
   });
   const [loading, setLoading] = useState(false);
 
@@ -22,8 +23,8 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
 
-    if (!form.name || !form.email || !form.password) {
-      toast.error("Please fill all fields");
+    if (!form.name || !form.phoneNumber || !form.password || !form.role) {
+      toast.error("Please fill all required fields");
       setLoading(false);
       return;
     }
@@ -33,6 +34,7 @@ export default function Register() {
       toast.success("Registered successfully! Please login.");
       navigate("/login");
     } catch (err) {
+        console.error(err);
       toast.error(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
@@ -54,9 +56,17 @@ export default function Register() {
             className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
           />
           <input
+            type="text"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            value={form.phoneNumber}
+            onChange={handleChange}
+            className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
+          />
+          <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email (optional)"
             value={form.email}
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
@@ -76,9 +86,9 @@ export default function Register() {
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
           >
-            <option value="farmer">Farmer</option>
-            <option value="buyer">Buyer</option>
-            <option value="agent">Agent</option>
+            <option value="FARMER">Farmer</option>
+            <option value="BUYER">Buyer</option>
+            <option value="AGENT">Agent</option>
           </select>
 
           <button

@@ -24,14 +24,10 @@ api.interceptors.request.use((config) => {
 // Auth APIs
 // ---------------------
 export const authAPI = {
-  register: async (data) => {
-    const res = await api.post("/users/register", data);
-    return res.data;
-  },
+  register: async (data) => (await api.post("/users/register", data)).data,
 
   login: async (data) => {
     const res = await api.post("/users/login", data);
-    // Save JWT and user info
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("user", JSON.stringify(res.data.user));
     return res.data;
@@ -49,56 +45,45 @@ export const authAPI = {
 };
 
 // ---------------------
-// Crop APIs
+// Crop APIs (with image support)
 // ---------------------
 export const cropAPI = {
-  addCrop: async (data) => {
-    const res = await api.post("/crops", data);
-    return res.data;
+  addCrop: async (cropData, images) => {
+    const formData = new FormData();
+    formData.append("crop", new Blob([JSON.stringify(cropData)], { type: "application/json" }));
+    if (images) images.forEach((img) => formData.append("images", img));
+    return (await api.post("/crops", formData, { headers: { "Content-Type": "multipart/form-data" } })).data;
   },
 
-  getAllCrops: async () => {
-    const res = await api.get("/crops");
-    return res.data;
+  getAllCrops: async () => (await api.get("/crops")).data,
+  getMyCrops: async () => (await api.get("/crops/my")).data,
+
+  updateCrop: async (id, cropData, images) => {
+    const formData = new FormData();
+    formData.append("crop", new Blob([JSON.stringify(cropData)], { type: "application/json" }));
+    if (images) images.forEach((img) => formData.append("images", img));
+    return (await api.put(`/crops/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })).data;
   },
 
-  getMyCrops: async () => {
-    const res = await api.get("/crops/my");
-    return res.data;
-  },
-
-  updateCrop: async (id, data) => {
-    const res = await api.put(`/crops/${id}`, data);
-    return res.data;
-  },
-
-  deleteCrop: async (id) => {
-    const res = await api.delete(`/crops/${id}`);
-    return res.data;
-  },
+  deleteCrop: async (id) => (await api.delete(`/crops/${id}`)).data,
 };
 
 // ---------------------
 // Order APIs
 // ---------------------
 export const orderAPI = {
-  createOrder: async (data) => {
-    const res = await api.post("/orders", data);
-    return res.data;
-  },
+  createOrder: async (data) => (await api.post("/orders", data)).data,
+  getMyOrders: async () => (await api.get("/orders/my")).data,
+  getOrderById: async (id) => (await api.get(`/orders/${id}`)).data,
+  updateStatus: async (id, status) => (await api.put(`/orders/${id}/status?status=${status}`)).data,
+};
 
-  getMyOrders: async () => {
-    const res = await api.get("/orders/my");
-    return res.data;
-  },
-
-  cancelOrder: async (id) => {
-    const res = await api.put(`/orders/${id}/cancel`);
-    return res.data;
-  },
-
-  markAsPaid: async (id) => {
-    const res = await api.put(`/orders/${id}/paid`);
-    return res.data;
-  },
+// ---------------------
+// Payment APIs
+// ---------------------
+export const paymentAPI = {
+  initiatePayment: async (data) => (await api.post("/payments", data)).data,
+  getPaymentsByOrder: async (orderId) => (await api.get(`/payments/order/${orderId}`)).data,
+  getPaymentById: async (id) => (await api.get(`/payments/${id}`)).data,
+  updatePaymentStatus: async (id, status) => (await api.put(`/payments/${id}/status?status=${status}`)).data,
 };

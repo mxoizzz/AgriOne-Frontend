@@ -6,7 +6,7 @@ import { authAPI } from "../services/service";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -17,18 +17,38 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
 
-    if (!form.email || !form.password) {
-      toast.error("Please fill all fields");
+    if (!form.identifier || !form.password) {
+      toast.error("Please fill all fields", { duration: 5000 });
       setLoading(false);
       return;
     }
 
     try {
-      await authAPI.login(form);
-      toast.success("Login successful!");
-      navigate("/"); // redirect to home/dashboard
+      // 🔹 Call API
+      const res = await authAPI.login(form); 
+      // Expect response like: { token: "...", user: { role: "FARMER", name: "...", ... } }
+
+      toast.success("Login successful!", { duration: 3000 });
+
+      // Save token/user in localStorage if needed
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      // 🔹 Role-based redirection
+      if (res.user?.role === "FARMER") {
+        navigate("/farmer-dashboard");
+      } else if (res.user?.role === "BUYER") {
+        navigate("/buyer-dashboard");
+      } else if (res.user?.role === "AGENT") {
+        navigate("/agent-dashboard");
+      } else {
+        console.log("Unknown role:", res.user?.role);
+        // fallback
+        navigate("/");
+      }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
+      console.error(err);
+      toast.error(err.response?.data?.message || "Login failed", { duration: 5000 });
     } finally {
       setLoading(false);
     }
@@ -41,10 +61,10 @@ export default function Login() {
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
+            type="text"
+            name="identifier"
+            placeholder="Email or Phone"
+            value={form.identifier}
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
           />

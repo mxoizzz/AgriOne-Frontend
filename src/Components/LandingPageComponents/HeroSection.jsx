@@ -10,9 +10,8 @@ export default function HeroSection() {
         href="#ai-support"
         className="mb-6 flex items-center gap-4 px-6 py-2 rounded-full border border-gray-700 bg-gray-900 hover:bg-gray-800 transition shadow-md"
       >
-        <span className="text-sm">Introducing AI Support</span>
+        <span className="text-sm">Introducing AI Supported Crop Disease Prediction</span>
         <div className="flex gap-1">
-          <ArrowRight size={18} />
           <ArrowRight size={18} />
         </div>
       </a>
