@@ -45,24 +45,19 @@ export const authAPI = {
 };
 
 // ---------------------
-// Crop APIs (with image support)
+// Crop APIs (frontend-only image paths)
 // ---------------------
 export const cropAPI = {
-  addCrop: async (cropData, images) => {
-    const formData = new FormData();
-    formData.append("crop", new Blob([JSON.stringify(cropData)], { type: "application/json" }));
-    if (images) images.forEach((img) => formData.append("images", img));
-    return (await api.post("/crops", formData, { headers: { "Content-Type": "multipart/form-data" } })).data;
+  addCrop: async (cropData) => {
+    // cropData.images = array of frontend-generated URLs (e.g., from URL.createObjectURL)
+    return (await api.post("/crops", cropData)).data;
   },
 
   getAllCrops: async () => (await api.get("/crops")).data,
   getMyCrops: async () => (await api.get("/crops/my")).data,
 
-  updateCrop: async (id, cropData, images) => {
-    const formData = new FormData();
-    formData.append("crop", new Blob([JSON.stringify(cropData)], { type: "application/json" }));
-    if (images) images.forEach((img) => formData.append("images", img));
-    return (await api.put(`/crops/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })).data;
+  updateCrop: async (id, cropData) => {
+    return (await api.put(`/crops/${id}`, cropData)).data;
   },
 
   deleteCrop: async (id) => (await api.delete(`/crops/${id}`)).data,
@@ -75,7 +70,8 @@ export const orderAPI = {
   createOrder: async (data) => (await api.post("/orders", data)).data,
   getMyOrders: async () => (await api.get("/orders/my")).data,
   getOrderById: async (id) => (await api.get(`/orders/${id}`)).data,
-  updateStatus: async (id, status) => (await api.put(`/orders/${id}/status?status=${status}`)).data,
+  updateStatus: async (id, status) =>
+    (await api.put(`/orders/${id}/status?status=${status}`)).data,
 };
 
 // ---------------------
@@ -83,7 +79,9 @@ export const orderAPI = {
 // ---------------------
 export const paymentAPI = {
   initiatePayment: async (data) => (await api.post("/payments", data)).data,
-  getPaymentsByOrder: async (orderId) => (await api.get(`/payments/order/${orderId}`)).data,
+  getPaymentsByOrder: async (orderId) =>
+    (await api.get(`/payments/order/${orderId}`)).data,
   getPaymentById: async (id) => (await api.get(`/payments/${id}`)).data,
-  updatePaymentStatus: async (id, status) => (await api.put(`/payments/${id}/status?status=${status}`)).data,
+  updatePaymentStatus: async (id, status) =>
+    (await api.put(`/payments/${id}/status?status=${status}`)).data,
 };

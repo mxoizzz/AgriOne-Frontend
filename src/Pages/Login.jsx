@@ -38,7 +38,7 @@ export default function Login() {
       if (res.user?.role === "FARMER") {
         navigate("/farmer-dashboard");
       } else if (res.user?.role === "BUYER") {
-        navigate("/buyer-dashboard");
+        navigate("/marketplace");
       } else if (res.user?.role === "AGENT") {
         navigate("/agent-dashboard");
       } else {

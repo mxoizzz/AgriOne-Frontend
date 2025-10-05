@@ -21,6 +21,7 @@ const Sidebar = ({ setSidebarOpen }) => {
     { title: "Marketplace", icon: ShoppingCart, path: "/farmer-marketplace" },
     { title: "Weather", icon: Cloud, path: "/weather" },
     { title: "Farm Inputs", icon: Package, path: "/farm-inputs" },
+    { title: "Equipment Rental", icon: Warehouse, path: "/equipment-rental" }, // NEW ITEM
     { title: "Storage", icon: Warehouse, path: "/storage" },
     { title: "Crop Guidance", icon: Lightbulb, path: "/crop-guidance" },
     { title: "Gov Schemes", icon: Award, path: "/gov-schemes" },

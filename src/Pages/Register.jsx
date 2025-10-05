@@ -11,7 +11,8 @@ export default function Register() {
     phoneNumber: "", // required
     email: "",       // optional
     password: "",
-    role: "FARMER",  // must match backend enum: FARMER, BUYER, AGENT
+    role: "FARMER",  // must match backend enum
+    location: "",    // new field
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +24,7 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
 
-    if (!form.name || !form.phoneNumber || !form.password || !form.role) {
+    if (!form.name || !form.phoneNumber || !form.password || !form.role || !form.location) {
       toast.error("Please fill all required fields");
       setLoading(false);
       return;
@@ -34,7 +35,7 @@ export default function Register() {
       toast.success("Registered successfully! Please login.");
       navigate("/login");
     } catch (err) {
-        console.error(err);
+      console.error(err);
       toast.error(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
@@ -79,6 +80,16 @@ export default function Register() {
             onChange={handleChange}
             className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
           />
+          {/* New Location field */}
+          <input
+            type="text"
+            name="location"
+            placeholder="Location "
+            value={form.location}
+            onChange={handleChange}
+            className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-green-400"
+          />
+
           {/* Role selector */}
           <select
             name="role"

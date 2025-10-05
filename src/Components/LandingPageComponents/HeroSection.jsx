@@ -29,7 +29,7 @@ export default function HeroSection() {
       {/* CTA Buttons */}
       <div className="flex flex-wrap justify-center gap-4">
         <a
-          href="#marketplace"
+          href="/register"
           className="px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold shadow-lg flex items-center gap-2 transition"
         >
           Get Started <ArrowRight size={20} />
