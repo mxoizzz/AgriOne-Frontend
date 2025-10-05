@@ -1,16 +1,134 @@
-# React + Vite
+# 🌾 AgriOne
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧑‍🤝‍🧑 Team Details
 
-Currently, two official plugins are available:
+**Team Name:**  
+*IdeaForge
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Team Members:**  
+- Moiz Shaikh 
+- Swanand Gajkeshwar
+- Mehek Khan
+- Vedashree Patil
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Project Overview
 
-## Expanding the ESLint configuration
+**Project Name:**  
+AgriOne
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Project Abstract:**  
+AgriOne is an intelligent agricultural management platform designed to help farmers and distributors streamline crop monitoring, weather forecasting, market analytics, and yield prediction. The project aims to bring technology-driven insights to the agriculture sector through modern web tools and data processing techniques.
+
+---
+
+## 🧰 Tech Stack
+
+**Frontend:**  
+- React.js  
+- HTML5, CSS3  
+- JavaScript (ES6+)  
+- Tailwind CSS / Bootstrap 
+
+**Backend:**  
+- Springboot
+- Hibernate 
+- MySql
+- RESTful APIs  
+- Authentication (JWT / OAuth)  
+
+**Other Tools:**  
+- Git & GitHub  
+- VS Code  
+- Docker (optional)  
+- Cloud Deployment (AWS / Render / Vercel etc.)
+
+---
+
+## 🧠 Dataset Used
+
+- Manual datasets for government schemes and crop guidance  
+- APIs for weather and market data 
+
+
+---
+
+## 🗂️ Repository Links
+
+- **Backend Repository:** [AgriOne-Backend](https://github.com/mxoizzz/AgriOne-Backend)  
+- **Frontend Repository:** [AgriOne-Frontend](https://github.com/mxoizzz/AgriOne-Frontend)
+
+---
+
+## 🏗️ Project Structure
+
+### 📦 Frontend
+```
+AgriOne-Frontend/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── App.js
+└── package.json
+```
+
+### ⚙️ Backend
+```
+AgriOne-Backend/
+├── src/
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   └── server.js
+└── package.json
+```
+
+---
+
+## ⚡ How to Run the Project
+
+### Frontend
+```bash
+cd Frontend
+npm install
+npm start
+npm run dev
+```
+
+### Backend
+```bash
+cd Backend
+mvn clean install
+mvn spring-boot:run
+```
+
+---
+
+## 📈 Future Scope
+- Integration with IoT sensors for live data monitoring  
+- AI-based crop recommendation system  
+- Advanced weather prediction models  
+- Mobile app version for farmers  
+
+---
+
+## 🤝 Contributors
+We thank all contributors who helped in building **AgriOne** 🌱  
+
+Moiz Shaikh – [GitHub](https://github.com/mxoizzz/) 
+
+Swanand Gajkeshwar – [GitHub](https://github.com/frictionalfor/) 
+
+Mehek Khan – [GitHub](https://github.com/Mehek-1248/) 
+
+Vedashree Patil – [GitHub](https://github.com/veda22974)
+
+---
+
+## 📜 License
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+Made with ❤️ by Team IdeaForge
